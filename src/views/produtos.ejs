@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <title>Cyber Informática e Cursos</title>
+</head>
+<body>
+    <div class="container">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Produto</th>
+                    <th>Preço</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% produtos.forEach(function(produtos) { %>
+                <tr>
+                    <td><%= produtos.attributes.name %></td>
+                    <td><%= produtos.attributes.price %></td>
+                    <td><a class="btn-excluir" href="http://localhost:3000<%= produtos.links.self %>">Excluir</a></td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+    <script>
+        const produtosList = document.querySelector('table');
+        produtosList.addEventListener('click', function(event){
+            event.preventDefault();
+            const btnExcluir = event.target;
+                if (btnExcluir.classList.contains('btn-excluir')) {
+                const url = btnExcluir.href;
+        
+                fetch(url, {
+                    method: 'DELETE'
+                }).then(function() {
+                    btnExcluir.parentNode.parentNode.remove();
+                })
+            }    
+        });   
+    </script>
+
+</body>
+</html>
